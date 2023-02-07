@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <div class="parallax d-flex flex-column align-items-center justify-content-center">
+    <span class="inside-caption">Profesori</span>
+  </div>
+  <div class="vetList">
+    <div class="vetProfile" *ngFor="let professor of professors">
+      <div class="left">
+        <div class="name">Ime i prezime: {{professor?.name}} {{professor?.surname}}</div>
+        <div class="specialty">Licenca: {{ professor?.licenseNumber }}</div>
+      </div>
+    </div>
+  </div>
+</div>

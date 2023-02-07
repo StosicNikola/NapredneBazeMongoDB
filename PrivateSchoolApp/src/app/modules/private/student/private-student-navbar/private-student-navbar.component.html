@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-fluid logo" [routerLink]="['./profile']"><img src="././assets/images/logo.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ml-2">
+        <a class="nav-link text-uppercase" [routerLink]="['./profile']">Profil</a>
+      </li>
+      <li class="nav-item ml-2">
+        <a class="nav-link text-uppercase" [routerLink]="['./subjects']">Predmeti</a>
+      </li>
+      <li class="nav-item ml-2">
+        <a class="nav-link text-uppercase" [routerLink]="['./professors']">Profesori</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      <button type="button" class="btn btn-primary ml-2 btn-sm text-uppercase" (click)="logout()">
+        Odjava
+      </button>
+    </span>
+  </div>
+</nav>

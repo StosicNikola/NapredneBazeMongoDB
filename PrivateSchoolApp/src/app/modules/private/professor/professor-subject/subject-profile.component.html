@@ -1,0 +1,93 @@
+<div class="container-fluid">
+  <div class="parallax d-flex align-items-center justify-content-center">
+    <span class="inside-caption">Predmet</span>
+  </div>
+</div>
+<div class="vet mb-30">
+  <div class="profile">
+    <div class="name1">{{ subject?.name }}</div>
+    <hr class="light-100" />
+    <hr class="light-100" />
+    <div class="div1">
+      <div class="impres">Broj studenata:</div>
+      <div class="num">{{ subject?.students.length || "0" }}</div>
+    </div>
+    <hr class="light-100" />
+    <hr class="light-100" />
+    <!-- <div class="div3 mt-2" *ngIf="isLoggedVet">
+                <button type="button"
+                class="btn btn-outline-primary w-75 text-primary"
+                (click)="changeEducation()">Izmeni obrazovanje</button>
+                <div class="mt-3 div3" *ngIf="userWantToAddEduc">
+                    <input
+                    name="education"
+                    class="form-control"
+                    type="text"
+                    [(ngModel)]="veterinarian.education"
+                    placeholder="Obrazovanje veterinara"
+                    required
+                    autocomplete="off"
+                    />
+                    <button type="button"
+                    class="btn btn-danger w-100 mt-3"
+                    (click)="updateUser()" [disabled]="!veterinarian?.education">Sacuvaj promene</button>
+                </div>
+            </div> 
+  </div>-->
+  </div>
+  <div class="comments">
+    <div class="top">
+      <div class="top-left">
+        <!-- <h4 class="a123">Profil: {{veterinarian?.name}} {{veterinarian?.surname}}</h4>
+                    <div class="div2" *ngIf="veterinarian?.averageMark">
+                        <ngb-rating [(rate)]="veterinarian.averageMark" [max]="5" [readonly]="true" [starTemplate]="t">
+                        </ngb-rating>
+                    </div> -->
+        <!-- <div class="div2">Ocena: {{ veterinarian?.averageMark || '0' }} / 5</div>
+                    <div class="div2">Broj utisaka: {{totalFeedbacks}}</div> -->
+      </div>
+
+      <div class="top-right" *ngIf="isLoggedVet">
+        <button
+          type="button"
+          class="btn btn-outline-primary text-primary"
+          (click)="fileInput.click()"
+        >
+          Postavi sliku
+        </button>
+        <div *ngIf="imgFile" class="savePhoto">
+          <button class="btn btn-outline-success mt-3" (click)="editProfile()">
+            Sacuvaj izmene
+          </button>
+          <button class="btn btn-outline-danger mt-3">Obrisi izmene</button>
+        </div>
+        <input
+          id="animal-image"
+          type="file"
+          #fileInput
+          class="d-none"
+          name="animalImage"
+          (change)="uploadFile($event)"
+          accept="image/png, image/jpeg"
+        />
+      </div>
+    </div>
+    <hr class="light-100" />
+    <div class="middle1">
+      <div class="sort">Materijali</div>
+    </div>
+    <hr class="light-100" />
+    <div class="bottom">
+      <div class="impression" *ngFor="let feedback of vetFeedbacks">
+        <h4 class="who">
+          {{ feedback?._medicalRecord?._petOwner?.name }}
+          {{ feedback?._medicalRecord?._petOwner?.surname }}
+        </h4>
+        <div class="when">{{ getDate(feedback?.createdAt) }}</div>
+        <div class="stars" *ngIf="feedback?.mark"></div>
+        <div class="comment">{{ feedback?.comment }}</div>
+        <hr class="light-100" />
+      </div>
+    </div>
+  </div>
+</div>
