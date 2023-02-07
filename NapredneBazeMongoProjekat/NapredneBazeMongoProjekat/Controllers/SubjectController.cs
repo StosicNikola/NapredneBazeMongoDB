@@ -96,7 +96,6 @@ namespace NapredneBazeMongoProjekat.Controllers
 
         [HttpGet]
         [Route("GetProfessorSubjectsByProfessorId/{idProfessor}")]
-        [EnableCors("AllowOrigin")] 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult GetProfessorSubjectsByProfessorId(string idProfessor)
