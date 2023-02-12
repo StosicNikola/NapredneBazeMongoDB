@@ -31,20 +31,16 @@ export class RegisterComponent {
   register(): void {
     if (this.data.role === 'Student') {
       this.data.role = 'STUDENT';
+      this.authService.register_student(this.data);
     }
     else {
       this.data.role = 'PROFESSOR';
+      this.authService.register_profesor(this.data);
     }
     if (this.isRegisterInProgress) { return; }
     this.isRegisterInProgress = true;
-    this.router.navigate(['/private-school/confirm-email-info']);
-    // this.authService.register(this.data)
-    //   .subscribe(() => {
-    //     this.isRegisterInProgress = false;
-    //     this.router.navigate(['/vet/confirm-email-info']);
-    //   }, error => {
-    //     this.isRegisterInProgress = false;
-    //   });
+    this.router.navigate(['/private-school/login']);
+  
   }
 
   toggleShowPassword(): void {

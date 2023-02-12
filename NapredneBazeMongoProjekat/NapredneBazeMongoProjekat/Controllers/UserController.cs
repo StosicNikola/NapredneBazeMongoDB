@@ -306,6 +306,27 @@ namespace NapredneBazeMongoProjekat.Controllers{
             }
         }
 
+        [HttpPost]
+        [Route("signIn/{email}/{password}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult SignIn(string email, string password)
+        {
+            try
+            {
+                SignInView signInData = new SignInView();
+                signInData.Email = email;
+                signInData.Password = password;
+                var data  = _userDao.SignIn(signInData);
+                if(data is not null)
+                    return Ok(data);
+                return BadRequest("Greska. Pogresne info!");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
 
     }
 }

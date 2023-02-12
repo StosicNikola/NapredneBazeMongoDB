@@ -51,15 +51,12 @@ export class SubjectProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._id = get(this.route, 'snapshot.params._id');
-    if (get(this.sessionService, 'user._id') && get(this.sessionService, 'user.role') === 'VETERINARIAN') {
-      this.isLoggedVet = true;
-    }
-    this.getSubject();
+    this.getSubject()
+    this._id = localStorage.getItem("id")
   }
 
   getSubject() {
-    this.subject = this.subjectService.getSubjectById(this._id);
+    this.subjectService.getSubjectById(this._id).subscribe(s=>this.subject =s)
   }
 
   getDate(date) {

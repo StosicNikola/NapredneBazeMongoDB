@@ -24,9 +24,7 @@ export class PrivateStudentNavbarComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    if (this.sessionService.user && (get(this.sessionService, 'user.role') === UserType.STUDENT)) {
-      this._user = get(this.sessionService, 'user._id');
-    }
+    
   }
 
   ngOnDestroy() {

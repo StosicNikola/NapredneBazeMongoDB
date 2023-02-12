@@ -68,5 +68,21 @@ namespace NapredneBazeMongoProjekat.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        [HttpGet]
+        [Route("GetNotifications")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetNotifications()
+        {
+            try
+            {
+                var notification = _notificationDao.GetNotifications();
+                return Ok(notification);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }

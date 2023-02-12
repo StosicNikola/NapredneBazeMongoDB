@@ -34,20 +34,32 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
+
+    this.authService.login(this.data.email, this.data.password).subscribe(s=>{
+        localStorage.setItem("id", s.id);
+        if(s.role ===0)
+        {
+          localStorage.setItem("role","STUDENT");
+        }
+        else
+        {
+          localStorage.setItem("role", "PROFESSOR");
+        }
+        if(s.role === 0)
+          {
+        this.router.navigate(['/student/profile']);
+            console.log("ne radi")
+          }
+        else
+        {
+          this.router.navigate(['/professor/my-subjects']);
+          console.log("radi")
+        }
+      
+  })
     // this.isLoginInProgress = true;
-    // this.authService.login(this.data)
-    //   .subscribe(() => {
-    //     this.isLoginInProgress = false;
-    //     if (get(this.sessionService, 'user')) {
-    //       this.handleRedirect(get(this.sessionService, 'user'));
-    //     }
-    //   }, () => {
-    //     this.notifier.notify('error', 'Nije moguce prijavljivanje');
-    //     this.isLoginInProgress = false;
-    // });
-    this.isLoginInProgress = true;
-    this.isLoginInProgress = false;
-    this.handleRedirect(get(this.sessionService, 'user'));
+    // this.isLoginInProgress = false;
+    // this.handleRedirect(get(this.sessionService, 'user'));
   }
 
   goToRegister() {

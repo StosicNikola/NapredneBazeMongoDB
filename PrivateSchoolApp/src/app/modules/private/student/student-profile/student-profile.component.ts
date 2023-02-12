@@ -6,6 +6,8 @@ import { IStudent } from '../../../shared/interfaces/interface';
 import { SessionService } from 'src/app/modules/shared/services/session.service';
 import { StudentService } from 'src/app/modules/shared/services/student.service';
 
+import { map } from 'rxjs';
+
 @Component({
   selector: 'student-profile',
   templateUrl: './student-profile.component.html',
@@ -15,6 +17,7 @@ export class StudentProfileComponent implements OnInit {
   public readonly faBook = faBook;
   public student: IStudent;
   public subjectsTotal: number = 0;
+  
 
   constructor(
     private readonly router: Router,
@@ -24,11 +27,13 @@ export class StudentProfileComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.getStudentById();
+    var id = localStorage.getItem("id")
+    this.getStudentById(id);
+    console.log(this.student)
   }
 
-  getStudentById() {
-    this.student = this.studentService.getStudentById(0);
+  getStudentById(id:string) {
+    this.studentService.getStudentById(id).subscribe(s=> this.student =  s);
   }
 
   goToSubjectProfile(id: string) {

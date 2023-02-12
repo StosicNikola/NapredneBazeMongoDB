@@ -434,5 +434,20 @@ namespace NapredneBazeMongoProjekat.Dao
                 collection.DeleteOne(filter);              
             } 
         }
+
+        public SignInResponse SignIn(SignInView signInData)
+        {
+
+            var userFilter = Builders<User>.Filter.Eq("_email", signInData.Email);
+            var user = _mongoDBClient._datebase.GetCollection<User>(_mongoDBClient._collectionUser).Find(userFilter).FirstOrDefault();
+            if(user is null)
+                return null;
+            if(user._password != signInData.Password)
+                return null;    
+            SignInResponse response = new SignInResponse();
+            response.Id = user._id.ToString();
+            response.role = user._userType;
+            return response;
+        }       
     }
 }

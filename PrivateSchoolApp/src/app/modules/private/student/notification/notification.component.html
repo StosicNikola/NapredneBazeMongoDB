@@ -1,0 +1,11 @@
+<div class="notification-info">
+    <span class="text-secondary contact-info">Obavestenja:</span>
+    <div *ngFor="let notification of notifications">
+        <h4>Profesor:</h4>
+        <p>{{notification?.professor.name}}  {{notification?.professor.surname}} </p>
+        <h4>Predmet:</h4>
+        <p>{{notification?.subject.name}}</p>
+        <h4>Tekst:</h4>
+        <p>{{notification?.opis}}</p>
+    </div>
+</div>

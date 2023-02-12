@@ -1,19 +1,18 @@
 ﻿using System;
+using Microsoft.AspNetCore.Http;
 
 namespace NapredneBazeMongoProjekat.DTOs
 {
     public class MaterialView
     {
         public string Id { get; set; }
-        public string OriginalName { get; set; }
         public string FileName { get; set; }
-        public string Path { get; set; }
-        public string Description { get; set; }
+        public string file {get;set;}
         public MaterialView() { }   
 
 
     }
-}
+}   
 
 
 

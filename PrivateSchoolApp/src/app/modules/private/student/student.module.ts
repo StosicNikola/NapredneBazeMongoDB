@@ -8,6 +8,9 @@ import { StudentSubjectsComponent } from './subjects/subject.component';
 import { ProfessorsComponent } from './professors/professors.component';
 import { SubjectProfileComponent } from './subject-profile/subject-profile.component';
 
+import { NotificationComponent } from './notification/notification.component';
+
+
 const routes: Routes = [
   {
     path: '',
@@ -34,14 +37,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(routes)],
-  declarations: [
-    PrivateStudentWrapperComponent,
-    StudentProfileComponent,
-    PrivateStudentNavbarComponent,
-    StudentSubjectsComponent,
-    ProfessorsComponent,
-    SubjectProfileComponent,
-  ],
+    declarations: [
+        PrivateStudentWrapperComponent,
+        StudentProfileComponent,
+        PrivateStudentNavbarComponent,
+        StudentSubjectsComponent,
+        ProfessorsComponent,
+        SubjectProfileComponent,
+        NotificationComponent,
+    ],
+    imports: [SharedModule, RouterModule.forChild(routes)]
 })
 export class StudentModule {}

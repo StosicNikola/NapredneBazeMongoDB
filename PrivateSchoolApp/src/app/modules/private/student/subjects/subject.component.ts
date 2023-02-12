@@ -28,10 +28,11 @@ export class StudentSubjectsComponent implements OnInit {
   }
 
   getSubjects() {
-    this.subjects = this.subjectService.getAllSubjects("63e021ff3f58bc85b535aba0");
+    this.subjectService.getAllSubjects().subscribe(m=>this.subjects = m);
   }
 
   join(subjectId: string) {
-    this.subjectService.enrollToSubject("63e021ff3f58bc85b535aba0", subjectId);
+    var id = localStorage.getItem("id") 
+    this.subjectService.enrollToSubject(id, subjectId);
   }
 }

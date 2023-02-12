@@ -6,6 +6,8 @@ import {
   AuthPrivateStudentGuard,
 } from './auth.private.guard';
 
+
+
 const routes: Routes = [
   {
     path: 'professor',
@@ -13,7 +15,7 @@ const routes: Routes = [
       import('src/app/modules/private/professor/professor.module').then(
         (m) => m.ProfessorModule
       ),
-    canLoad: [AuthPrivateProfessorGuard],
+    // canLoad: [AuthPrivateProfessorGuard],
   },
   {
     path: 'student',
@@ -21,9 +23,9 @@ const routes: Routes = [
       import('src/app/modules/private/student/student.module').then(
         (m) => m.StudentModule
       ),
-    canLoad: [AuthPrivateStudentGuard],
+    // canLoad: [AuthPrivateStudentGuard],
   },
-  { path: '**', redirectTo: '/professor/my-subjects' },
+  { path: '**', redirectTo: '/private-school/login' },
 ];
 
 @NgModule({

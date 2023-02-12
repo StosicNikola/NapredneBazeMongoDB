@@ -22,9 +22,7 @@ export class PrivateProfessorNavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.sessionService.user && (get(this.sessionService, 'user.role') === UserType.STUDENT)) {
-      this._user = get(this.sessionService, 'user._id');
-    }
+    
   }
 
   logout() {

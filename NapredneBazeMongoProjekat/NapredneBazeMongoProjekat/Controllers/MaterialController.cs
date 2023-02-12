@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Constraints;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using NapredneBazeMongoProjekat.Configuration;
 using NapredneBazeMongoProjekat.Dao;
 using NapredneBazeMongoProjekat.DTOs;
 using NapredneBazeMongoProjekat.Models;
 using System;
-
+using System.Collections;
+using System.IO;
 
 namespace NapredneBazeMongoProjekat.Controllers
 {
@@ -13,34 +17,67 @@ namespace NapredneBazeMongoProjekat.Controllers
     [Route("[controller]")]
     public class MaterialController : ControllerBase
     {
-        private MaterialDao _materialDao;
+        private MongoDBConfig mongoDBConfig;
 
         public MaterialController()
         {
-            _materialDao = new MaterialDao();
+             mongoDBConfig = new MongoDBConfig();
         }
+       
         [HttpPost]
-        [Route("CreateMaterial/{originalName}/{fileName}/{description}/{path}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult CreateMaterial(string originalName,string fileName,string description,string path)
+        [Route("save/{subjectid}")]
+        public IActionResult SaveMaterial(IFormFile file, string subjectid)
         {
-            try
-            {
-                MaterialView material = new MaterialView()
-                {
-                    OriginalName = originalName,
-                    FileName = fileName,
-                    Description = description,
-                    Path = path
-                };
-                _materialDao.CreateMaterial(material);
+
+             ObjectId objectId = ObjectId.Parse(subjectid);
+             var filter = Builders<Subject>.Filter.Eq("_id",objectId);
+             var query = mongoDBConfig._datebase.GetCollection<Subject>(mongoDBConfig._collectionSubjects).Find(filter).FirstOrDefault();
+    
+               MemoryStream stream = new MemoryStream();
+               file.CopyTo(stream);
+               byte[] array = stream.ToArray();
+               Material m = new Material{
+                _fileName = file.FileName,
+                file = Convert.ToBase64String(array),
+                _subject = new MongoDBRef("Subject", objectId)
+               };
+               mongoDBConfig._datebase.GetCollection<Material>(mongoDBConfig._collectionMaterials).InsertOne(m);
+
                 return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
+
+               
+            
+        }
+        [HttpGet]
+        [Route("get/{fileId}")]
+        public IActionResult SaveMaterial(string fileId)
+        {
+
+
+            ObjectId objectId = ObjectId.Parse(fileId);
+             var filter = Builders<Material>.Filter.Eq("_id",objectId);
+             var query = mongoDBConfig._datebase.GetCollection<Material>(mongoDBConfig._collectionMaterials).Find(filter).FirstOrDefault();
+
+            MaterialView m = new MaterialView{
+                Id = query._id.ToString(),
+                FileName = query._fileName,
+                file = query.file
+
+            };
+    
+            //    MemoryStream stream = new MemoryStream();
+            //    file.CopyTo(stream);
+            //    byte[] array = stream.ToArray();
+            //    Material m = new Material{
+            //     _fileName = file.FileName,
+            //     file = Convert.ToBase64String(array)
+            //    };
+            //    mongoDBConfig._datebase.GetCollection<Material>(mongoDBConfig._collectionMaterials).InsertOne(m);
+
+                return Ok(m);
+
+               
+            
         }
     }
 }

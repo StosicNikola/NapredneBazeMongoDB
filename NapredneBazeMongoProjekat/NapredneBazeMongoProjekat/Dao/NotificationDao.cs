@@ -74,5 +74,30 @@ namespace NapredneBazeMongoProjekat.Dao
             }
             return notifications;
         }
+        public List<NotificationView> GetNotifications()
+        {
+            var collectionUser = _mongoDBClient._datebase.GetCollection<User>(_mongoDBClient._collectionUser);
+            var collectionNotification = _mongoDBClient._datebase.GetCollection<Notification>(_mongoDBClient._collectionNotifications);
+            List<NotificationView> notifications = new List<NotificationView>();
+            var queryNotification = collectionNotification.Find(_ => true).ToList();
+            if(queryNotification is not null)
+            {
+                foreach (var notification in queryNotification)
+                {
+                            ObjectId objectId = ObjectId.Parse(notification._professor.Id.ToString());
+                            var filterProfessor = Builders<User>.Filter.Eq("_id", objectId);
+                            var queryProfessor = collectionUser.Find(filterProfessor).FirstOrDefault();
+                            ProfessorView professor = new ProfessorView(queryProfessor);
+                            notifications.Add(new NotificationView()
+                            {
+                                Id = notification._id.ToString(),
+                                DateTimePost = notification._dateTime,
+                                Description = notification._description,
+                                Professor = professor
+                            });
+                }
+            }
+            return notifications;
+        }
     }
 }

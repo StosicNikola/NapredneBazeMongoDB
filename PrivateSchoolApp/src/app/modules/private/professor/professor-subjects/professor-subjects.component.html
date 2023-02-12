@@ -9,6 +9,9 @@
         <div class="left">
           <div class="name">Naziv predmeta: {{ subject?.name }}</div>
         </div>
+        <div class="left">
+          <div class="name">Id predmeta: {{ subject?.id }}</div>
+        </div>
         <div class="right">
           <button
             type="button"
@@ -19,6 +22,25 @@
           </button>
         </div>
       </div>
+    </div>
+    <div class="navigatios-add">
+      <form (submit)="add()" >
+        <input 
+        [(ngModel)]="data.subject"
+        required
+        placeholder="id subject"
+        [ngModelOptions]="{standalone: true}"
+        />
+        <input 
+        [(ngModel)]="data.opis"
+        required
+        placeholder="tekst obavestenja ..."
+        [ngModelOptions]="{standalone: true}"
+        />
+        <button type="submit" class="btn btn-primary btn-lg text-light w-50">Add notification</button>>
+
+      </form>
+
     </div>
   </div>
   

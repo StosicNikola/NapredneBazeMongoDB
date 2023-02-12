@@ -38,6 +38,6 @@ export class ProfessorsComponent implements OnInit {
   }
 
   getProfessors() {
-    this.professors = this.professorService.getAllProfessors();
+   this.professorService.getAllProfessors().subscribe(m=> this.professors = m);
   }
 }

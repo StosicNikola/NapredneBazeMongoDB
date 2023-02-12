@@ -64,7 +64,7 @@ export class AuthPublicGuard implements CanActivate, CanLoad {
     // return false;
     console.log("public 2");
     if (a) { return true; }
-    this.router.navigate(['/professor/my-subjects']);
+    this.router.navigate(['/private-school/home']);
     return false;
   }
 }

@@ -6,12 +6,12 @@ const routes: Routes = [
   {
     path: 'private-school',
     loadChildren: () => import('./modules/public/public.module').then(m => m.PublicModule),
-    canLoad: [AuthPublicGuard]
+    // canLoad: [AuthPublicGuard]
   }, 
   {
     path: '',
     loadChildren: () => import('./modules/private/private.module').then(m => m.PrivateModule),
-    canLoad: [AuthPrivateGuard]
+    // canLoad: [AuthPrivateGuard]
   },
    {
     path: '**',

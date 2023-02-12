@@ -7,11 +7,13 @@ import { UserService } from '../../../shared/services/user.service';
 import { SessionService } from '../../../shared/services/session.service';
 import { environment } from 'src/app/environments/environment';
 import { SubjectService } from 'src/app/modules/shared/services/subject.service';
+import { NotificationService } from 'src/app/modules/shared/services/notification.service';
 
 @Component({
   selector: 'professor-subjects',
   templateUrl: './professor-subjects.component.html',
-  styleUrls: ['./professor-subjects.component.css']
+  styleUrls: ['./professor-subjects.component.css'],
+  providers: [NotificationService]
 })
 export class ProfessorSubjectsComponent implements OnInit {
   public baseUrl = environment.baseUrl;
@@ -24,12 +26,17 @@ export class ProfessorSubjectsComponent implements OnInit {
     search: '',
     role: UserType.STUDENT
   };
+  public data = {
+    subject: "",
+    opis:""
+  }
 
   constructor(
     private readonly router: Router,
     private readonly sessionService: SessionService,
     private readonly userService: UserService,
-    private readonly subjectService: SubjectService
+    private readonly subjectService: SubjectService,
+    private notifService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -41,10 +48,15 @@ export class ProfessorSubjectsComponent implements OnInit {
   }
 
   getSubjects() {
-    this.subjectService.getAllSubjectsForProfessor("63e022c83f58bc85b535aba2").subscribe((subjects)=> { this.subjects = subjects; })
+    var id = localStorage.getItem("id")
+    this.subjectService.getAllSubjectsForProfessor(id).subscribe((subjects)=> { this.subjects = subjects; })
   }
 
   goToSubjectProfile(id: string) {
     this.router.navigate(['/professor/subject', id]);
+  }
+  add()
+  {
+    this.notifService.createNotification(this.data.subject,localStorage.getItem("id"), this.data.opis)
   }
 }

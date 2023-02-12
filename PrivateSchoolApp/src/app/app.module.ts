@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
+
+
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: { position: 'right', distance: 12, },
@@ -25,7 +27,7 @@ const customNotifierOptions: NotifierOptions = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

@@ -49,3 +49,19 @@ export interface IActiveSubject {
    name: string;
    isEnroll: boolean;
 }
+
+
+export interface ISingInResponse
+{
+    id:string;
+    role:number;
+}
+
+export interface INotification
+{
+  id:string;
+  date:Date;
+  subject:IStudent;
+  professor: IProfessor;
+  opis: String;
+}

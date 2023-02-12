@@ -41,7 +41,7 @@ export class AuthPrivateProfessorGuard implements CanActivate, CanLoad, CanActiv
     }
 
     console.log("private 1 professor guard");
-    this.router.navigate(['/student/profile']);
+    this.router.navigate(['/professor/my-subjects']);
     return false;
     // if (!b) {
     //   return true;
@@ -76,7 +76,7 @@ export class AuthPrivateStudentGuard implements CanActivate, CanLoad {
     // this.router.navigate(['/professor/home']);
     
     if (b) { return true; }
-    this.router.navigate(['/professor/my-subjects']);
+    this.router.navigate(['/student/profile']);
     return false;
   }
 }

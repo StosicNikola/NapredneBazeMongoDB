@@ -9,12 +9,15 @@ import { UserService } from 'src/app/modules/shared/services/user.service';
 import { ISubject, IUser } from 'src/app/modules/shared/interfaces/interface';
 import { environment } from 'src/app/environments/environment';
 import { SubjectService } from 'src/app/modules/shared/services/subject.service';
+import { MaterialService } from 'src/app/modules/shared/services/material.service';
 
 @Component({
   selector: 'subject-profile',
   templateUrl: './subject-profile.component.html',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./subject-profile.component.css']
+  styleUrls: ['./subject-profile.component.css'],
+  providers: []
+  
 })
 export class SubjectProfileComponent implements OnInit {
   public baseUrl = environment.baseUrl;
@@ -47,19 +50,19 @@ export class SubjectProfileComponent implements OnInit {
     private readonly userService: UserService,
     private readonly sessionService: SessionService,
     private readonly modalService: NgbModal,
-    private readonly subjectService: SubjectService
+    private readonly subjectService: SubjectService,
+    private readonly materialService: MaterialService
   ) { }
 
   ngOnInit(): void {
-    this._id = get(this.route, 'snapshot.params._id');
-    if (get(this.sessionService, 'user._id') && get(this.sessionService, 'user.role') === 'VETERINARIAN') {
+    
       this.isLoggedVet = true;
-    }
+    
     this.getSubject();
   }
 
   getSubject() {
-    this.subject = this.subjectService.getSubjectById(this._id);
+    this.subjectService.getSubjectById(this._id).subscribe(s=>this.subject = s);
   }
 
   getDate(date) {
@@ -82,8 +85,8 @@ export class SubjectProfileComponent implements OnInit {
   }
 
   editProfile() {
-    if (!this.imgFile) { return; }
-    this.userService.updateUser({ _id: get(this.sessionService, 'user._id') }, this.imgFile)
+   
+    this.userService.updateUser({ _id: localStorage.getItem("id") }, this.imgFile)
       .subscribe(res => {
         // this.subject.image = res.image;
         this.imgFile = null;
@@ -135,5 +138,7 @@ export class SubjectProfileComponent implements OnInit {
     reader.onload = () => {
       this.previewUrl = reader.result;
     };
+    this.materialService.setMaterial(this.imgFile, this._id)
+
   }
 }
